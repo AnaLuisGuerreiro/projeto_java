@@ -1,14 +1,24 @@
 package GameStart;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
+import static GameStart.general_functions.*;
 
-public class functions {
+public class functions_cliente {
 
     /**
      * Apresentação do menu com 8 opções para o cliente
      */
-    public static void menuCliente(){
+    public static void menuCliente() throws FileNotFoundException {
         Scanner input = new Scanner(System.in);
+
+        // Ficheiros
+        String file_admins = "Ficheiros/GameStart_Admins.csv";
+        String file_categorias = "Ficheiros/GameStart_Categorias.csv";
+        String file_clientes = "Ficheiros/GameStart_Clientes.csv";
+        String file_copyright = "Ficheiros/GameStart_Copyright.csv";
+        String file_vendas = "Ficheiros/GameStart_Vendas.csv";
 
         int opcao=0;
 
@@ -35,6 +45,8 @@ public class functions {
                 case 2:
                     break;
                 case 3:
+                    ficheiroParaMatriz(file_vendas);
+                    imprimirCatalogo();
                     break;
                 case 4:
                     break;
@@ -51,12 +63,6 @@ public class functions {
 
 
         } while (opcao != 8);
-
-
-
-
-
-
 
     }
 
@@ -86,12 +92,15 @@ public class functions {
 
     }
 
+    /**
+     * Calcular numeros triangulares e multiplos de 5 ate aos 121 lugares existentes
+     * @return array de lugares vagos
+     */
     public static int procurarEstacionamento(){
-        int lugares = 121;
-        int[] lugares_vagos = new int[0];
+       return 1;
+    }
 
-
-
+    public static void imprimirCatalogo() {
 
     }
 
