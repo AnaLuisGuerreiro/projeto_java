@@ -37,7 +37,7 @@ public class functions_admin {
         return correto;
     }
 
-    public static void consultaFicheiros(String[][] file){
+    public static void menuFicheiros(String[][] file_vendas, String [][] file_categorias, String [][] file_clientes){
         Scanner input = new Scanner(System.in);
 
         int opcao;
@@ -56,9 +56,13 @@ public class functions_admin {
 
             switch (opcao) {
                 case 1:
-                    imprimirMatriz(file);
+                    imprimirMatriz(file_vendas);
                     break;
-
+                case 2:
+                    imprimirMatriz(file_clientes);
+                    break;
+                case 3:
+                    imprimirMatriz(file_categorias);
             }
         }while (opcao != 4) ;
     }

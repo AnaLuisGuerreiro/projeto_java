@@ -2,7 +2,6 @@ package GameStart;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class functions_general {
@@ -78,14 +77,15 @@ public class functions_general {
         return matriz_ficheiro;
     }
 
-    public static void imprimirMatriz(String [][] file){
+    public static String[][] imprimirMatriz(String [][] file){
 
         for (int l = 0; l < file.length; l++) {
             for (int c = 0; c < file[0].length; c++) {
-                System.out.print(file[l][c]);
+                System.out.print(file[l][c] + "\s");
             }
             System.out.println();
         }
+        return file;
     }
 
     /**

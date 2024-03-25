@@ -21,12 +21,14 @@ public class main {
         String file_vendas = "src/Ficheiros/GameStart_Vendas.csv";
         String file_copyright = "src/Ficheiros/GameStart_Copyright.txt";
         String file_admins = "src/Ficheiros/GameStart_Admins.csv";
+        String file_clientes = "src/Ficheiros/GameStart_Clientes.csv";
 
 
         // Colocar os ficheiros em matrizes
         String[][] matriz_vendas = ficheiroParaMatriz(file_vendas, ";");
         String[][] matriz_admins = ficheiroParaMatriz(file_admins, ";");
         String[][] matriz_categorias = ficheiroParaMatriz(file_categorias, ";");
+        String[][] matriz_clientes = ficheiroParaMatriz(file_clientes, ";");
 
 
         // Inicio do programa | LOGIN
@@ -132,7 +134,7 @@ public class main {
 
                         switch (opcao) {
                             case 1:
-                                consultaFicheiros(matriz_categorias);
+                                menuFicheiros(matriz_vendas, matriz_clientes,matriz_categorias);
                                 break;
                             case 2:
                                 break;
