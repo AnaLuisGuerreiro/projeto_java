@@ -113,7 +113,7 @@ public class functions_general {
 
         for (int l= 0; l < matriz_file.length; l++) {
             String jogo = matriz_file[l][coluna]; // Guardar o primeiro jogo da lista
-            boolean repetido = false;  // Garantir que só aparece 1 vez
+            boolean repetido = false;  // Controlar as repetições
 
             for (int i = 0; i < l; i++) {
                 if (matriz_file[i][coluna].equalsIgnoreCase(jogo)) { // Comparar o primeiro jogo com o jogo das linhas seguintes
@@ -124,6 +124,7 @@ public class functions_general {
             if (!repetido) { // Se não estiver repetido, imprimir nome do jogo
                 System.out.println(jogo);
             }
+
         }
     }
 }

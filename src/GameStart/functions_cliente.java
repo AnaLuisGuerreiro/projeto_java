@@ -7,75 +7,6 @@ import static GameStart.functions_general.*;
 
 public class functions_cliente {
 
-    /**
-     * Apresentação do menu com 8 opções para o cliente
-     */
-    public static void menuCliente() throws FileNotFoundException {
-        Scanner input = new Scanner(System.in);
-
-        // Ficheiros
-        String file_categorias = "src/Ficheiros/GameStart_Categorias.csv";
-        String file_vendas = "src/Ficheiros/GameStart_Vendas.csv";
-
-        // Colocar os ficheiros em matrizes
-        String[][] matriz_vendas = ficheiroParaMatriz(file_vendas, ";");
-
-        int opcao=0;
-        String editora;
-
-        do {
-
-            // Opções do cliente
-            System.out.print("""
-                    
-                    ------------- Menu Cliente -------------
-                    1. Novo registo 📝
-                    2. Procurar estacionamento 🚗
-                    3. Imprimir catálogo 📗
-                    4. Imprimir catálogos gráficos 📕
-                    5. Imprimir catálogo editora 📘
-                    6. Imprimir catálogo por categoria 📊
-                    7. Imprimir jogo mais recente 📅
-                    8. Sair 👋
-                    """);
-            opcao = input.nextInt();
-
-            switch (opcao){
-                case 1:
-                    novoRegisto();
-                    break;
-                case 2:
-                    System.out.print("""
-                                   **** Lugares Vagos ****
-                    """);
-                    procurarEstacionamento(121);
-                    break;
-                case 3:
-                    imprimirSemDuplicados(matriz_vendas,4);
-                    break;
-                case 4:
-                    menuCatalogos();
-                    break;
-                case 5:
-                    System.out.println("\s\s\s\s\s\s\s**** Pesquisar por editora **** ");
-                    System.out.print("Insira a editora: ");
-                    editora = input.next();
-                    imprimirEditora(matriz_vendas,editora);
-                    break;
-                case 6:
-                    break;
-                case 7:
-                    break;
-                case 8:
-                    break;
-                default:
-            }
-
-
-        } while (opcao != 8);
-
-    }
-
 
     /** Opção 1
      * Metodo para simular um registo de um novo cliente
@@ -140,7 +71,7 @@ public class functions_cliente {
         String file_witcher = "src/Ficheiros/CatalogoGrafico/witcher3.txt";
 
 
-        // Menu dos catalogos
+        // Menu dos catalogos a imprimir
        do {
            System.out.println("""
                           
@@ -187,15 +118,54 @@ public class functions_cliente {
        } while(opcao != 8);
     }
 
-    /** Opção 5
-     *
+    /** Opção 5 / Opção 6
+     * Função que recebe uma categoria ou uma editora inserida pelo utilizador
+     * e mostrar o jogo relacionado com os 2 parametros
      */
-    private static void imprimirEditora(String[][] matrizVendas, String editora) {
-        System.out.println("\n----> " + editora + " <----");
+    public static void imprimirPorEditoraOuCategoria(String[][] matrizVendas, String parametro) {
+        System.out.println("\n\s\s\s\s\s\s\s\s\s\s----> " + parametro.toUpperCase() + " <----");
 
+        for (int l = 0; l < matrizVendas.length; l++) {
+            String categoria = matrizVendas[l][3]; // Guardar os 3 paramentros de uma linha
+            String jogo = matrizVendas[l][4];
+            String editora = matrizVendas[l][2];
 
+            // Verificar se a linha corresponde ao parâmetro fornecido
+            if (editora.equalsIgnoreCase(parametro) || categoria.equalsIgnoreCase(parametro)) {
+
+                boolean repetido = false;  // Permite controlar os repetidos
+                for (int c = 0; c < l; c++) {
+                    if (matrizVendas[c][2].equalsIgnoreCase(editora) && matrizVendas[c][3].equalsIgnoreCase(categoria) && matrizVendas[c][4].equalsIgnoreCase(jogo)) {
+                        repetido = true;
+                    }
+                }
+
+                if (!repetido) { // Se não estiver repetido, imprime
+                    if(editora.equalsIgnoreCase(parametro)){  // Consoante o parametro imprimir os relacionados
+                        System.out.println("\n++++++++++++++++++++++++++++++++++++++");
+                        System.out.println("CATEGORIA: " + categoria);
+                    } else{
+                        System.out.println("\n++++++++++++++++++++++++++++++++++++++");
+                        System.out.println("EDITORA: " + editora);
+                    }
+                    System.out.println("JOGO: " + jogo);
+                    System.out.println("\s\s\s\s\s\s\s\s\s\s\s\s\s\s+++++++++++");
+                }
+            }
+        }
     }
 
+    public static String[][] lerUltimaLinha(String [][] matriz){
+        // Criar matriz de 1 linha
+        String [][] ultima_linha = new String[1][matriz[0].length];
+
+        // Preencher a ultima linha da matriz
+        for (int l = 0; l < matriz[0].length; l++){
+            ultima_linha[0][l] = matriz[matriz.length -1][l];
+        }
+
+        return ultima_linha;
+    }
 
 
 }
