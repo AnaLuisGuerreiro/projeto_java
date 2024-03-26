@@ -76,7 +76,7 @@ public class main {
                             procurarEstacionamento(121);
                             break;
                         case 3:
-                            imprimirSemDuplicados(matriz_vendas, 4);
+                            imprimirSemDuplicados(matriz_vendas);
                             break;
                         case 4:
                             menuCatalogos();
@@ -94,7 +94,7 @@ public class main {
                             imprimirPorEditoraOuCategoria(matriz_vendas, categoria);
                             break;
                         case 7:
-                            lerUltimaLinha(imprimirSemDuplicados(matriz_vendas, 4));
+                            jogoMaisRecente(matriz_vendas);
                             break;
                         case 8:
                             imprimir(file_copyright);

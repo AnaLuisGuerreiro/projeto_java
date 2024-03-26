@@ -112,26 +112,39 @@ public class functions_general {
      * @param matriz_file
      * @return
      */
-    public static String[][] imprimirSemDuplicados(String[][] matriz_file, int coluna) {
+    public static String[][] imprimirSemDuplicados(String[][] matriz_file) {
+
+        // Criação de outra matriz
+        String [][] matriz_sem_duplicados = new String[matriz_file.length][matriz_file[0].length];
+
+        // Transferir os dados para a nova matriz
+        for (int l = 0; l < matriz_file.length; l++) {
+            for (int c = 0; c < matriz_file[0].length; c++) {
+                matriz_sem_duplicados[l][c] = matriz_file[l][c];
+            }
+        }
 
         for (int l= 0; l < matriz_file.length; l++) {
-            String jogo = matriz_file[l][coluna]; // Guardar o primeiro jogo da lista
+            String jogo = matriz_file[l][4]; // Guardar o primeiro jogo da lista
             boolean repetido = false;  // Controlar as repetições
 
             for (int i = 0; i < l; i++) {
-                if (matriz_file[i][coluna].equalsIgnoreCase(jogo)) { // Comparar o primeiro jogo com o jogo das linhas seguintes
+                if (matriz_file[i][4].equalsIgnoreCase(jogo)) { // Comparar o primeiro jogo com o jogo das linhas seguintes
                     repetido = true;
                 }
             }
 
-            if (!repetido) { // Se não estiver repetido, imprimir nome do jogo
-                System.out.println(jogo);
-
+            if (repetido) { // Se repetido, preenche matriz em branco.
+                matriz_sem_duplicados[l][4] = "";
+            } else {
+                System.out.println(jogo); // Se não repetido, imprime o jogo
             }
 
         }
-        return matriz_file;
+        return matriz_sem_duplicados;
     }
+
+
 
 }
 

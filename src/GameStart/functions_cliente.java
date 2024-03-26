@@ -126,41 +126,32 @@ public class functions_cliente {
     public static void imprimirPorEditoraOuCategoria(String[][] matrizVendas, String parametro) {
         System.out.println("\n\s\s\s\s\s\s\s\s\s\s----> " + parametro.toUpperCase() + " <----");
 
-        for (int l = 0; l < matrizVendas.length; l++) {
-            String categoria = matrizVendas[l][3]; // Guardar os 3 paramentros de uma linha
-            String jogo = matrizVendas[l][4];
-            String editora = matrizVendas[l][2];
 
-            // Verificar se a linha corresponde ao parâmetro fornecido
-            if (editora.equalsIgnoreCase(parametro) || categoria.equalsIgnoreCase(parametro)) {
-
-                boolean repetido = false;  // Permite controlar os repetidos
-                for (int c = 0; c < l; c++) {
-                    if (matrizVendas[c][2].equalsIgnoreCase(editora) && matrizVendas[c][3].equalsIgnoreCase(categoria) && matrizVendas[c][4].equalsIgnoreCase(jogo)) {
-                        repetido = true;
-                    }
-                }
-
-                if (!repetido) { // Se não estiver repetido, imprime
-                    if(editora.equalsIgnoreCase(parametro)){  // Consoante o parametro imprimir os relacionados
-                        System.out.println("\n++++++++++++++++++++++++++++++++++++++");
-                        System.out.println("CATEGORIA: " + categoria);
-                    } else{
-                        System.out.println("\n++++++++++++++++++++++++++++++++++++++");
-                        System.out.println("EDITORA: " + editora);
-                    }
-                    System.out.println("JOGO: " + jogo);
-                    System.out.println("\s\s\s\s\s\s\s\s\s\s\s\s\s\s+++++++++++");
-                }
-            }
-        }
     }
 
 
-    public static void lerUltimaLinha(String [][] matrizSemDuplicados){
-        String ultima_linha = matrizSemDuplicados[174][4];
+    public static void jogoMaisRecente(String [][] matriz_file){
+        String jogo_mais_recente = "";
 
-        System.out.println(ultima_linha);
+        for (int l = 0; l < matriz_file.length; l++) {
+            String jogo = matriz_file[l][4]; // Guardar o primeiro jogo
+            boolean repetido = false;  // Controlar as repetições
+
+            for (int i = 0; i < l; i++) {
+                if (matriz_file[i][4].equalsIgnoreCase(jogo)) { // Comparar o jogo atual com os jogos anteriores
+                    repetido = true;
+                    break;
+                }
+            }
+
+            if (!repetido) { // Se não for repetido, atualiza o jogo
+                jogo_mais_recente = jogo;
+            }
+        }
+
+        // Retornar o jogo mais recente em um array de string
+        System.out.println("\n\s\s\s\s\s\s **** Jogo mais recente ****");
+        System.out.println(jogo_mais_recente);
     }
 
 
