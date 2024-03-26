@@ -1,11 +1,17 @@
 package GameStart;
 
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 import static GameStart.functions_general.imprimir;
 import static GameStart.functions_general.imprimirMatriz;
 
 public class functions_admin {
+    /**
+     * Função para verificar username e password de acesso
+     * @param admins
+     * @return dados corretos / dados incorretos
+     */
     public static boolean login(String [][] admins){
         Scanner input = new Scanner(System.in);
 
@@ -37,6 +43,12 @@ public class functions_admin {
         return correto;
     }
 
+    /** Opção 1
+     * Menu com os respetivos ficheiros a imprimir
+     * @param file_vendas
+     * @param file_categorias
+     * @param file_clientes
+     */
     public static void menuFicheiros(String[][] file_vendas, String [][] file_categorias, String [][] file_clientes){
         Scanner input = new Scanner(System.in);
 
@@ -66,4 +78,39 @@ public class functions_admin {
             }
         }while (opcao != 4) ;
     }
+
+    /** Opção 2
+     * Metodo para calcular a quantidade de vendas e o valor total em €
+     * @param file_vendas
+     */
+    public static void vendasTotal(String [][] file_vendas){
+        int count = 0;
+       double somatorio = 0.0;
+
+        for(int i = 0; i < file_vendas.length; i++){
+                String primeira_venda = file_vendas[i][5];
+                double valor_venda = Double.parseDouble(primeira_venda);
+                somatorio += valor_venda;
+                count++;
+        }
+
+
+        System.out.printf("Vendas: %.2f" + somatorio + "€");
+        System.out.println("Faturas: " + count);
+
+    }
+
+    public static double lucros ( String [][] file_vendas){
+        double lucro_total = 0.0;
+        // 8572,47€
+        for (int i = 0; i < file_vendas.length; i++){
+        }
+
+        return lucro_total;
+    }
+
+
+
+
 }
+

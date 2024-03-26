@@ -1,5 +1,6 @@
 package GameStart;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -155,16 +156,11 @@ public class functions_cliente {
         }
     }
 
-    public static String[][] lerUltimaLinha(String [][] matriz){
-        // Criar matriz de 1 linha
-        String [][] ultima_linha = new String[1][matriz[0].length];
 
-        // Preencher a ultima linha da matriz
-        for (int l = 0; l < matriz[0].length; l++){
-            ultima_linha[0][l] = matriz[matriz.length -1][l];
-        }
+    public static void lerUltimaLinha(String [][] matrizSemDuplicados){
+        String ultima_linha = matrizSemDuplicados[174][4];
 
-        return ultima_linha;
+        System.out.println(ultima_linha);
     }
 
 

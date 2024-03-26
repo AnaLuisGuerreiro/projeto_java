@@ -1,7 +1,6 @@
 package GameStart;
 
 import java.io.FileNotFoundException;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import static GameStart.functions_admin.*;
@@ -11,10 +10,12 @@ import static GameStart.functions_general.*;
 public class main {
     public static void main(String[] args) throws FileNotFoundException {
         Scanner input = new Scanner(System.in);
+
         // Variaveis
         int user;
         int opcao=0;
         String editora, categoria;
+        Double total_vendas;
 
         // Ficheiros
         String file_categorias = "src/Ficheiros/GameStart_Categorias.csv";
@@ -43,7 +44,7 @@ public class main {
             user = input.nextInt();
         } while (user != 1 && user != 2);
 
-        // ############## MENU CLIENTE ###################
+        // ###################################### MENU CLIENTE #######################################################
             // Validação e apresentação de menu Cliente
             if (user == 1) {
 
@@ -93,7 +94,7 @@ public class main {
                             imprimirPorEditoraOuCategoria(matriz_vendas, categoria);
                             break;
                         case 7:
-                            imprimirSemDuplicados(lerUltimaLinha(matriz_vendas), 4);
+                            lerUltimaLinha(imprimirSemDuplicados(matriz_vendas, 4));
                             break;
                         case 8:
                             imprimir(file_copyright);
@@ -108,11 +109,11 @@ public class main {
 
             }
 
-        // ############## MENU ADMIN #####################
+        // ############################################ MENU ADMIN ##################################################
             // Validação e apresentação de menu Admin
             if (user == 2) {
 
-                if (login(matriz_admins)) { // Sistema login, aceder só com credenciais
+               // if (login(matriz_admins)) { // Sistema login, aceder só com credenciais
                     do {
 
                         // Opções do Admin
@@ -137,6 +138,7 @@ public class main {
                                 menuFicheiros(matriz_vendas, matriz_clientes,matriz_categorias);
                                 break;
                             case 2:
+                                vendasTotal(matriz_vendas);
                                 break;
                             case 3:
                                 break;
@@ -169,5 +171,5 @@ public class main {
 
 
 
-    }
+  //  }
 }

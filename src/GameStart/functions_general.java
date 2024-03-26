@@ -103,13 +103,16 @@ public class functions_general {
             System.out.println(linha);  // imprimir linha
         }
 
+        leitorFicheiro.close();
     }
 
     /**
      * Função para retirar informação duplicada
+     *
      * @param matriz_file
+     * @return
      */
-    public static void imprimirSemDuplicados(String[][] matriz_file, int coluna) {
+    public static String[][] imprimirSemDuplicados(String[][] matriz_file, int coluna) {
 
         for (int l= 0; l < matriz_file.length; l++) {
             String jogo = matriz_file[l][coluna]; // Guardar o primeiro jogo da lista
@@ -123,10 +126,14 @@ public class functions_general {
 
             if (!repetido) { // Se não estiver repetido, imprimir nome do jogo
                 System.out.println(jogo);
+
             }
 
         }
+        return matriz_file;
     }
+
 }
+
 
 
