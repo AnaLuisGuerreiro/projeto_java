@@ -95,12 +95,13 @@ public class functions_admin {
         }
 
 
-        System.out.printf("Vendas: %.2f" + somatorio + "€");
+        String profit = String.format("%.2f",somatorio);
+        System.out.println("Vendas: " + profit + "€");
         System.out.println("Faturas: " + count);
 
     }
 
-    public static double lucros ( String [][] file_vendas){
+    public static double lucroTotal( String [][] file_vendas){
         double lucro_total = 0.0;
         // 8572,47€
         for (int i = 0; i < file_vendas.length; i++){
@@ -109,8 +110,127 @@ public class functions_admin {
         return lucro_total;
     }
 
+    /**
+     * Metodo para pesquisar um cliente pelo id
+     * e mostrar as suas informações
+     */
+    public static void pesquisaCliente(String [][] clientes , String id){
+
+        System.out.println("Nº | Nome \s\s\s\s\s\s\s\s | Telemóvel  | E-mail                  |");
+        System.out.println("------------------------------------------------------------");
+
+        for (int l = 0; l < clientes.length; l++){
+          for (int c = 0; c < clientes[0].length; c++){
+              if (clientes[l][0].equalsIgnoreCase(id)){
+                  System.out.print(clientes[l][c] + "\s | ");
+              }
+          }
+
+        }
+        System.out.println();
+        System.out.println("------------------------------------------------------------");
 
 
+    }
+
+    /**
+     * Função para retornar o jogo mais caro do sistema
+     * @param vendas (ficheiro)
+     */
+    public static void jogoMaisCaro(String [][] vendas){
+
+        // Guardar os primeiros valores
+        Double valor, valor_mais_caro = Double.parseDouble(vendas[0][5]);
+        String nome_jogo = vendas[0][4];
+
+        for (int l = 0 ; l < vendas.length; l++){
+            valor = Double.parseDouble(vendas[l][5]); // String para double
+            if(valor > valor_mais_caro){ // Comparação do maior
+                valor_mais_caro = valor;
+                nome_jogo = vendas[l][4];
+            }
+
+        }
+
+         System.out.println("\n\s\s\s\s\s\s **** Jogo mais caro ****");
+         System.out.println(" JOGO: " + nome_jogo + " | " + valor_mais_caro + "0€");
+
+
+}
+
+    public static void melhoresClientes(String[][] vendas, String[][] clientes){
+
+        String melhor_cliente = "";
+        double valor_maior = 0;
+
+
+        for (int k = 0; k < clientes.length; k++){ // Ficheiro clientes
+            String id_cliente = clientes[k][0];
+            double somatorio = 0; // incremento das compras
+
+            for (int l = 0; l < vendas.length; l++){ // Ficheiro vendas
+                String id_vendas = vendas[l][1];
+                Double compras = Double.parseDouble(vendas[l][5]); // Valor de compra por linha
+
+                if(id_cliente.equalsIgnoreCase(id_vendas)){ // identificar o cliente nas compras
+                    somatorio += compras; // Somar as diferentes compras de 1 cliente
+
+                }
+
+                if(somatorio > valor_maior){
+                    melhor_cliente = id_cliente;
+                    valor_maior = somatorio;
+                }
+
+            }
+        }
+
+        pesquisaCliente(clientes,melhor_cliente);
+
+
+
+
+
+        System.out.println(melhor_cliente + " " + String.format("%.2f",valor_maior));
+    }
+
+   public static void top5(String [][] vendas){
+
+        boolean repetido = false;
+
+        for (int l = 0; l < vendas.length; l++){
+            String jogo = vendas[l][4];
+            double valor = Double.parseDouble(vendas[l][5]);
+            double somatorio=0;
+
+            if(vendas[l][4].equalsIgnoreCase(jogo)){
+                repetido = true;
+                if(repetido){
+                    somatorio += valor;
+                }
+            }
+
+
+                System.out.println(jogo + " " + somatorio);
+
+        }
+   }
+
+   public static void pesquisaVendas(String [][] vendas, String [][] clientes, String jogo){
+
+        for (int l = 0; l < vendas.length; l++){
+            String jogo_atual = vendas[l][4];
+            if(jogo_atual.equalsIgnoreCase(jogo)){
+                String id_cliente = vendas[l][1];
+                for(int x = 0; x < clientes.length;x++){
+                    System.out.println(clientes[l][x] + " ");
+                }
+            }
+        }
+   }
+    public static void main(String[] args) {
+
+    }
 
 }
 

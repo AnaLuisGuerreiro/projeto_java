@@ -14,7 +14,7 @@ public class main {
         // Variaveis
         int user;
         int opcao=0;
-        String editora, categoria;
+        String editora, categoria, id_cliente,jogo;
         Double total_vendas;
 
         // Ficheiros
@@ -124,12 +124,13 @@ public class main {
                                 2. Total de vendas
                                 3. Total de lucro
                                 4. Pesquisa de cliente
-                                5. Melhores clientes
-                                6. Melhor categoria
-                                7. Pesquisa vendas
-                                8. Top 5 jogos
-                                9. Bottom 5 jogos
-                                10. Sair 👋
+                                5. Jogo mais caro
+                                6. Melhores clientes
+                                7. Melhor categoria
+                                8. Pesquisa Vendas
+                                9. Top 5 jogos
+                                10. Bottom 5 jogos
+                                11. Sair 👋
                                 """);
                         opcao = input.nextInt();
 
@@ -143,25 +144,37 @@ public class main {
                             case 3:
                                 break;
                             case 4:
+                                System.out.println("\n\s\s\s\s\s\s **** Pesquisar Cliente ****");
+                                System.out.println("Insira o codigo: ");
+                                id_cliente = input.next();
+                                pesquisaCliente(matriz_clientes,id_cliente);
                                 break;
                             case 5:
+                                jogoMaisCaro(matriz_vendas);
                                 break;
                             case 6:
+                                melhoresClientes(matriz_vendas,matriz_clientes);
                                 break;
                             case 7:
                                 break;
                             case 8:
+                                System.out.println("Jogo a pesquisar: ");
+                                jogo = input.next();
+                                pesquisaVendas(matriz_vendas,matriz_clientes,jogo);
                                 break;
                             case 9:
+                                top5(matriz_vendas);
                                 break;
                             case 10:
+                                break;
+                            case 11:
                                 imprimir(file_copyright);
                                 break;
                             default:
                                 break;
                         }
 
-                    } while (opcao != 10);
+                    } while (opcao != 11);
                 }
 
             }

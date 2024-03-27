@@ -126,8 +126,28 @@ public class functions_cliente {
     public static void imprimirPorEditoraOuCategoria(String[][] matrizVendas, String parametro) {
         System.out.println("\n\s\s\s\s\s\s\s\s\s\s----> " + parametro.toUpperCase() + " <----");
 
+        boolean repetido = false;
+
+        for (int l = 0; l < matrizVendas.length;l++){
+            String editora = matrizVendas[l][2];
+            String categoria = matrizVendas[l][3];
+            String jogo = "";
+
+            if (parametro.equalsIgnoreCase(editora) || parametro.equalsIgnoreCase(categoria)){
+                String[][] ultima_imprimida = new String[15][15];
+                if(!categoria.equalsIgnoreCase(ultima_imprimida[l][l])){
+                    System.out.println(categoria);
+                    ultima_imprimida[l][l] = categoria;
+                }
+
+
+            }
+
+        }
 
     }
+
+
 
 
     public static void jogoMaisRecente(String [][] matriz_file){
