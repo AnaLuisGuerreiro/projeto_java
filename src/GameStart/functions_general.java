@@ -8,6 +8,7 @@ public class functions_general {
 
     /**
      * Função para contar linhas de um ficheiro
+     *
      * @param file (caminho do ficheiro)
      * @return numero de linhas
      * @throws FileNotFoundException
@@ -29,7 +30,8 @@ public class functions_general {
 
     /**
      * Função para contar colunas de um ficheiro
-     * @param file (caminho do ficheiro)
+     *
+     * @param file        (caminho do ficheiro)
      * @param delimitador (, / ; / .)
      * @return numero de colunas
      * @throws FileNotFoundException
@@ -47,12 +49,13 @@ public class functions_general {
 
     /**
      * Converter um ficheiro numa matriz
-     * @param file (caminho do ficheiro
+     *
+     * @param file        (caminho do ficheiro
      * @param delimitador (,/;/.)
      * @return matriz com a info do ficheiro
      * @throws FileNotFoundException
      */
-    public static String [][] ficheiroParaMatriz(String file, String delimitador) throws FileNotFoundException {
+    public static String[][] ficheiroParaMatriz(String file, String delimitador) throws FileNotFoundException {
         // Declarar matriz à medida
         String[][] matriz_ficheiro = new String[contarLinhas(file) - 1][contarColunas(file, delimitador)];
         Scanner leitura = new Scanner(new File(file));
@@ -77,11 +80,11 @@ public class functions_general {
         return matriz_ficheiro;
     }
 
-    public static String[][] imprimirMatriz(String [][] file){
+    public static String[][] imprimirMatriz(String[][] file) {
 
         for (int l = 0; l < file.length; l++) {
             for (int c = 0; c < file[0].length; c++) {
-                System.out.print(file[l][c] + "\s");
+                System.out.print(file[l][c] + " | ");
             }
             System.out.println();
         }
@@ -90,6 +93,7 @@ public class functions_general {
 
     /**
      * Metodo para imprimir os ficheiros gráficos
+     *
      * @param file
      * @throws FileNotFoundException
      */
@@ -109,44 +113,53 @@ public class functions_general {
     /**
      * Função para retirar informação duplicada
      *
-     * @param matriz_file
+     * @param matriz_vendas
      * @return
      */
-    public static String[][] imprimirSemDuplicados(String[][] matriz_file) {
-
+    public static String[][] matrizSemDuplicados(String[][] matriz_vendas) {
         // Criação de outra matriz
-        String [][] matriz_sem_duplicados = new String[matriz_file.length][matriz_file[0].length];
+        String[][] matriz_sem_duplicados = new String[matriz_vendas.length][matriz_vendas[0].length];
 
-        // Transferir os dados para a nova matriz
-        for (int l = 0; l < matriz_file.length; l++) {
-            for (int c = 0; c < matriz_file[0].length; c++) {
-                matriz_sem_duplicados[l][c] = matriz_file[l][c];
-            }
+        int linha_count = 0;
+
+        // Preencher a primeira linha da nova matriz com a antiga
+        for (int c = 0; c < matriz_vendas[0].length; c++) {
+            matriz_sem_duplicados[0][c] = matriz_vendas[0][c];
         }
+        linha_count++; // Contar linha (para atualizar matriz final)
 
-        for (int l= 0; l < matriz_file.length; l++) {
-            String jogo = matriz_file[l][4]; // Guardar o primeiro jogo da lista
-            boolean repetido = false;  // Controlar as repetições
-
-            for (int i = 0; i < l; i++) {
-                if (matriz_file[i][4].equalsIgnoreCase(jogo)) { // Comparar o primeiro jogo com o jogo das linhas seguintes
+        for (int l = 1; l < matriz_vendas.length; l++) { // Linha seguinte
+            boolean repetido = false; // Controlar repetidos
+            for (int c = 0; c < linha_count; c++) { // Verificação linha a linha de cada vez
+                if (matriz_vendas[l][4].equals(matriz_sem_duplicados[c][4])) { // Verificação de repetidos por jogo
                     repetido = true;
+                    break;
                 }
             }
-
-            if (repetido) { // Se repetido, preenche matriz em branco.
-                matriz_sem_duplicados[l][4] = "";
-            } else {
-                System.out.println(jogo); // Se não repetido, imprime o jogo
+            if (!repetido) {
+                // Se não for repetido, copia a linha toda
+                for (int c = 0; c < matriz_vendas[0].length; c++) {
+                    matriz_sem_duplicados[linha_count][c] = matriz_vendas[l][c];
+                }
+                linha_count++;
             }
-
         }
-        return matriz_sem_duplicados;
+
+        // Criar matriz nova para ajustar tamanho e retirar linhas vazias
+        String[][] matrizFinal = new String[linha_count][matriz_vendas[0].length];
+        for (int l = 0; l < linha_count; l++) {
+            for (int c = 0; c < matriz_vendas[0].length; c++) {
+                matrizFinal[l][c] = matriz_sem_duplicados[l][c];
+            }
+        }
+
+        return matrizFinal;
     }
 
 
+    }
 
-}
+
 
 
 

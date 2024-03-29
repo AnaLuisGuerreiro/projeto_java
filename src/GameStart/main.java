@@ -30,7 +30,7 @@ public class main {
         String[][] matriz_admins = ficheiroParaMatriz(file_admins, ";");
         String[][] matriz_categorias = ficheiroParaMatriz(file_categorias, ";");
         String[][] matriz_clientes = ficheiroParaMatriz(file_clientes, ";");
-
+        String [][] vendas_sem_duplicados = matrizSemDuplicados(matriz_vendas);
 
         // Inicio do programa | LOGIN
         do {
@@ -76,7 +76,7 @@ public class main {
                             procurarEstacionamento(121);
                             break;
                         case 3:
-                            imprimirSemDuplicados(matriz_vendas);
+                            imprimirJogos(vendas_sem_duplicados);
                             break;
                         case 4:
                             menuCatalogos();
@@ -85,16 +85,16 @@ public class main {
                             System.out.println("\s\s\s\s\s\s\s**** Pesquisar por editora **** ");
                             System.out.print("Insira a editora: ");
                             editora = input.next();
-                            imprimirPorEditoraOuCategoria(matriz_vendas, editora);
+                           imprimirPorEditoraOuCategoria(vendas_sem_duplicados,matriz_categorias, editora,true);
                             break;
                         case 6:
                             System.out.println("\s\s\s\s\s\s\s**** Pesquisar por categoria **** ");
                             System.out.print("Insira uma categoria: ");
                             categoria = input.next();
-                            imprimirPorEditoraOuCategoria(matriz_vendas, categoria);
+                            imprimirPorEditoraOuCategoria(vendas_sem_duplicados,matriz_categorias, categoria, false);
                             break;
                         case 7:
-                            jogoMaisRecente(matriz_vendas);
+                           jogoMaisRecente(vendas_sem_duplicados);
                             break;
                         case 8:
                             imprimir(file_copyright);
@@ -135,7 +135,7 @@ public class main {
 
                         switch (opcao) {
                             case 1:
-                                menuFicheiros(matriz_vendas, matriz_clientes,matriz_categorias);
+                                menuFicheiros(matriz_vendas,matriz_categorias, matriz_clientes);
                                 break;
                             case 2:
                                 vendasTotal(matriz_vendas);
@@ -166,10 +166,4 @@ public class main {
 
             }
 
-
-
-
-
-
-  //  }
 }

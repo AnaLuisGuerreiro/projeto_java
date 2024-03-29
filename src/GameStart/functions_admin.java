@@ -62,7 +62,7 @@ public class functions_admin {
                     1. Vendas
                     2. Clientes
                     3. Categorias
-                    4. Sair 👋
+                    4. Voltar ⬅
                     """);
             opcao = input.nextInt();
 
@@ -95,8 +95,10 @@ public class functions_admin {
         }
 
 
-        System.out.printf("Vendas: %.2f" + somatorio + "€");
-        System.out.println("Faturas: " + count);
+        System.out.println("############################");
+        System.out.println("       Vendas: " + String.format("%.2f€",somatorio));
+        System.out.println("       Faturas: " + count);
+        System.out.println("############################");
 
     }
 

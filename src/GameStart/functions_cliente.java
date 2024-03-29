@@ -9,13 +9,14 @@ import static GameStart.functions_general.*;
 public class functions_cliente {
 
 
-    /** Opção 1
+    /**
+     * Opção 1
      * Metodo para simular um registo de um novo cliente
      */
-    public static void novoRegisto(){
+    public static void novoRegisto() {
         Scanner input = new Scanner(System.in);
 
-        String nome,email;
+        String nome, email;
         int contacto;
 
         try {
@@ -27,18 +28,19 @@ public class functions_cliente {
             System.out.print("Insira email: ");
             email = input.next();
 
-            System.out.println("\n ✅ Cliente inserido com sucesso: " + nome + " | " + contacto + " | " + email );
-        } catch (InputMismatchException e){
+            System.out.println("\n ✅ Cliente inserido com sucesso: " + nome + " | " + contacto + " | " + email);
+        } catch (InputMismatchException e) {
             System.out.println("Contacto inválido. Deve inserir apenas numeros.");
         }
 
     }
 
-    /** Opção 2
+    /**
+     * Opção 2
      * Função para descobrir os numeros triangulares e multiplos de 5 até 121
      * @return numeros correspondentes aos lugares vagos
      */
-    public static void procurarEstacionamento(int max){
+    public static void procurarEstacionamento(int max) {
         int somatorio = 0;
 
         for (int i = 1; somatorio < max; i++) {
@@ -53,9 +55,23 @@ public class functions_cliente {
         System.out.println();
     }
 
+    /**
+     * Opção 3
+     * Imprimir catalogo (coluna da matriz com os jogos)
+     * @param matriz_file
+     */
+    public static void imprimirJogos(String [][] matriz_file){
 
-    /** Opção 4
+        // Percorrer matriz para imprimir
+        for (int l = 0; l < matriz_file.length; l++) {
+            System.out.println(matriz_file[l][4]);
+        }
+    }
+
+    /**
+     * Opção 4
      * Apresenta o menu de catalogos e imprime o selecionado
+     *
      * @throws FileNotFoundException
      */
     public static void menuCatalogos() throws FileNotFoundException {
@@ -73,86 +89,117 @@ public class functions_cliente {
 
 
         // Menu dos catalogos a imprimir
-       do {
-           System.out.println("""
-                          
-                          **** Catálogos Gráficos ****
-                   1. Call of Duty
-                   2. Fifa
-                   3. Hollow Knight
-                   4. Minecraft
-                   5. Mortal Kombat
-                   6. Overcooked
-                   7. Witcher
-                   8. Sair 👋
-                   """);
-           opcao = input.nextInt();
+        do {
+            System.out.println("""
+                           
+                           **** Catálogos Gráficos ****
+                    1. Call of Duty
+                    2. Fifa
+                    3. Hollow Knight
+                    4. Minecraft
+                    5. Mortal Kombat
+                    6. Overcooked
+                    7. Witcher
+                    8. Voltar ⬅
+                    """);
+            opcao = input.nextInt();
 
-           switch (opcao){
-               case 1:
-                   imprimir(file_cod);
-                   break;
-               case 2:
-                   imprimir(file_fifa);
-                   break;
-               case 3:
-                   imprimir(file_hollow);
-                   break;
-               case 4:
-                   imprimir(file_minecraft);
-                   break;
-               case 5:
-                   imprimir(file_mortal);
-                   break;
-               case 6:
-                   imprimir(file_over);
-                   break;
-               case 7:
-                   imprimir(file_witcher);
-                   break;
-               case 8:
-                   break;
-               default:
-                   System.out.println("Opção inválida digite novamente!");
-                   opcao = input.nextInt();
-           }
-       } while(opcao != 8);
+            switch (opcao) {
+                case 1:
+                    imprimir(file_cod);
+                    break;
+                case 2:
+                    imprimir(file_fifa);
+                    break;
+                case 3:
+                    imprimir(file_hollow);
+                    break;
+                case 4:
+                    imprimir(file_minecraft);
+                    break;
+                case 5:
+                    imprimir(file_mortal);
+                    break;
+                case 6:
+                    imprimir(file_over);
+                    break;
+                case 7:
+                    imprimir(file_witcher);
+                    break;
+                case 8:
+                    break;
+                default:
+                    System.out.println("Opção inválida digite novamente!");
+                    opcao = input.nextInt();
+            }
+        } while (opcao != 8);
     }
 
-    /** Opção 5 / Opção 6
+
+    /**
+     * Opção 5 / Opção 6
      * Função que recebe uma categoria ou uma editora inserida pelo utilizador
      * e mostrar o jogo relacionado com os 2 parametros
      */
-    public static void imprimirPorEditoraOuCategoria(String[][] matrizVendas, String parametro) {
-        System.out.println("\n\s\s\s\s\s\s\s\s\s\s----> " + parametro.toUpperCase() + " <----");
+    public static void imprimirPorEditoraOuCategoria(String[][] matriz_vendas, String[][] matriz_categorias, String parametro, boolean editoras) {
+        System.out.println("\n----> " + parametro.toUpperCase() + " <----");
 
 
-    }
+        if (editoras) {
+            String ultima_categoria = "";
+
+            for (int t = 0; t < matriz_categorias.length; t++) {
+                String categoria = matriz_categorias[t][0];
+
+                for (int l = 0; l < matriz_vendas.length; l++) {
+                    String editora = matriz_vendas[l][2];
+                    String categoria_vendas = matriz_vendas[l][3];
+                    String jogo = matriz_vendas[l][4];
 
 
-    public static void jogoMaisRecente(String [][] matriz_file){
-        String jogo_mais_recente = "";
-
-        for (int l = 0; l < matriz_file.length; l++) {
-            String jogo = matriz_file[l][4]; // Guardar o primeiro jogo
-            boolean repetido = false;  // Controlar as repetições
-
-            for (int i = 0; i < l; i++) {
-                if (matriz_file[i][4].equalsIgnoreCase(jogo)) { // Comparar o jogo atual com os jogos anteriores
-                    repetido = true;
-                    break;
+                    if (parametro.equalsIgnoreCase(editora) && categoria.equalsIgnoreCase(categoria_vendas)) {
+                        if (!ultima_categoria.equals(categoria)) {
+                            System.out.println("\n**** " + categoria + " ****");
+                            ultima_categoria = categoria;
+                        }
+                        System.out.println(jogo);
+                    }
                 }
             }
+        } else {
+            String ultima_editora = "";
 
-            if (!repetido) { // Se não for repetido, atualiza o jogo
-                jogo_mais_recente = jogo;
+            for (int t = 0; t < matriz_categorias.length; t++) {
+                String categoria = matriz_categorias[t][0];
+
+                for (int l = 0; l < matriz_vendas.length; l++) {
+                    String editora = matriz_vendas[l][2];
+                    String categoria_vendas = matriz_vendas[l][3];
+                    String jogo = matriz_vendas[l][4];
+                    if (parametro.equalsIgnoreCase(categoria) && categoria.equals(categoria_vendas)){
+                        if (!ultima_editora.equals(editora)) {
+                            System.out.println("\n**** " + editora + " ****");
+                            ultima_editora = editora;
+                        }
+                        System.out.println(jogo);
+
+                    }
+
+                }
             }
         }
-
-        // Retornar o jogo mais recente em um array de string
-        System.out.println("\n\s\s\s\s\s\s **** Jogo mais recente ****");
-        System.out.println(jogo_mais_recente);
     }
 
+    /** Opção 7
+     * Metodo para retornar jogo mais recente
+     * @param matriz_file
+     */
+    public static void jogoMaisRecente (String[][]matriz_file){
+        // Ultimo jogo da matriz sem duplicados
+        String ultima_linha = matriz_file[matriz_file.length - 1][4];
+
+        System.out.println("\n\s\s\s\s\s\s **** Jogo mais recente ****");
+        System.out.println(ultima_linha);
+    }
 
 }
