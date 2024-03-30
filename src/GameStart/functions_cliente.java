@@ -145,18 +145,20 @@ public class functions_cliente {
         System.out.println("\n----> " + parametro.toUpperCase() + " <----");
 
 
-        if (editoras) {
+        if (editoras) { // Pesquisar por editora
             String ultima_categoria = "";
 
+            // Iterar as categorias
             for (int t = 0; t < matriz_categorias.length; t++) {
                 String categoria = matriz_categorias[t][0];
 
+                // Iterar as vendas
                 for (int l = 0; l < matriz_vendas.length; l++) {
                     String editora = matriz_vendas[l][2];
                     String categoria_vendas = matriz_vendas[l][3];
                     String jogo = matriz_vendas[l][4];
 
-
+                    // Verificar editora e categoria
                     if (parametro.equalsIgnoreCase(editora) && categoria.equalsIgnoreCase(categoria_vendas)) {
                         if (!ultima_categoria.equals(categoria)) {
                             System.out.println("\n**** " + categoria + " ****");
