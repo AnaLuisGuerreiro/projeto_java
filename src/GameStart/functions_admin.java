@@ -5,7 +5,7 @@ import java.util.Scanner;
 import static GameStart.functions_general.imprimirMatriz;
 
 public class functions_admin {
-    /**
+    /** Login
      * Função para verificar username e password de acesso
      * @param admins
      * @return dados corretos / dados incorretos
@@ -43,11 +43,11 @@ public class functions_admin {
 
     /** Opção 1
      * Menu com os respetivos ficheiros a imprimir
-     * @param file_vendas
-     * @param file_categorias
-     * @param file_clientes
+     * @param vendas
+     * @param categorias
+     * @param clientes
      */
-    public static void menuFicheiros(String[][] file_vendas, String [][] file_categorias, String [][] file_clientes){
+    public static void menuFicheiros(String[][] vendas, String [][] categorias, String [][] clientes){
         Scanner input = new Scanner(System.in);
 
         int opcao;
@@ -66,27 +66,27 @@ public class functions_admin {
 
             switch (opcao) {
                 case 1:
-                    imprimirMatriz(file_vendas);
+                    imprimirMatriz(vendas);
                     break;
                 case 2:
-                    imprimirMatriz(file_clientes);
+                    imprimirMatriz(clientes);
                     break;
                 case 3:
-                    imprimirMatriz(file_categorias);
+                    imprimirMatriz(categorias);
             }
         }while (opcao != 4) ;
     }
 
     /** Opção 2
      * Metodo para calcular a quantidade de vendas e o valor total em €
-     * @param file_vendas
+     * @param vendas
      */
-    public static void vendasTotal(String [][] file_vendas){
+    public static void vendasTotal(String [][] vendas){
         int count = 0;
         double somatorio = 0.0;
 
-        for(int i = 0; i < file_vendas.length; i++){
-            String primeira_venda = file_vendas[i][5];
+        for(int i = 0; i < vendas.length; i++){
+            String primeira_venda = vendas[i][5];
             double valor_venda = Double.parseDouble(primeira_venda);
             somatorio += valor_venda;
             count++;
@@ -100,14 +100,41 @@ public class functions_admin {
 
     }
 
-    /**
+    /** Opção 3
+     * Função para calcular o lucro total das vendas
+     * @param vendas
+     * @return total de lucro
+     */
+    public static double lucros ( String [][] vendas, String [][] categorias){
+        double lucro_total = 0;
+        double lucro = 0;
+
+        // 8572,47€
+        for (int i = 0; i < vendas.length; i++){
+            double valor = Double.parseDouble(vendas[i][5]);
+            String categoria_vendas = vendas[i][3];
+
+            for (int t = 0; t < categorias.length; t++){
+                double margem = Double.parseDouble(categorias[t][1]);
+                String categoria = categorias[t][0];
+
+                if(categoria.equalsIgnoreCase(categoria_vendas)){
+                    lucro = valor * (margem / 100);
+                    lucro_total += lucro;
+                }
+            }
+        }
+
+        return lucro_total;
+    }
+
+    /** Opção 4
      * Metodo para pesquisar um cliente pelo id
      * e mostrar as suas informações
      */
     public static void pesquisaCliente(String [][] clientes , String id){
 
-        System.out.println("\nNº | Nome \s\s\s\s\s\s\s\s | Telemóvel  | E-mail                  |");
-        System.out.println("------------------------------------------------------------");
+        System.out.println("----------------------------------------------------------------");
 
         for (int l = 0; l < clientes.length; l++){
             for (int c = 0; c < clientes[0].length; c++){
@@ -118,16 +145,16 @@ public class functions_admin {
 
         }
         System.out.println();
-        System.out.println("------------------------------------------------------------");
+        System.out.println("----------------------------------------------------------------");
 
 
     }
 
-    /**
+    /** Opção 5
      * Função para retornar o jogo mais caro do sistema
      * @param vendas (ficheiro)
      */
-    public static void jogoMaisCaro(String [][] vendas){
+    public static void jogoMaisCaro(String [][] vendas, String [][] clientes){
 
         // Guardar os primeiros valores
         Double valor, valor_mais_caro = Double.parseDouble(vendas[0][5]);
@@ -143,20 +170,47 @@ public class functions_admin {
         }
 
         System.out.println("\n\s\s\s\s\s\s **** Jogo mais caro ****");
-        System.out.println(" JOGO: " + nome_jogo + " | " + valor_mais_caro + "0€");
+        System.out.println(" JOGO: " + nome_jogo + " | " + valor_mais_caro + "0€\n");
+        System.out.println("            CLIENTES QUE COMPRARAM O : " + nome_jogo.toUpperCase());
+
+        for (int t = 0; t < vendas.length; t++){
+            String jogo_vendas = vendas[t][4];
+            if(nome_jogo.equalsIgnoreCase(jogo_vendas)){
+                String id_cliente = vendas[t][1];
+
+                for (int f = 0; f < clientes.length; f++){
+                    String cliente = clientes[f][0];
+                    if(id_cliente.equalsIgnoreCase(cliente)){
+                        pesquisaCliente(clientes,id_cliente);
+                    }
+                }
+            }
+
+
+        }
+
+
 
 
     }
 
+    /** Opção 6
+     * Função que retorna o melhor cliente, o total das compras e quais os jogos comprados
+     * @param vendas
+     * @param clientes
+     */
     public static void melhoresClientes(String[][] vendas, String[][] clientes){
+
+        System.out.println("\n\s\s\s\s\s\s **** Melhores Clientes ****");
 
         String melhor_cliente = "";
         double valor_maior = 0;
+        String jogos_comprados = "";
 
 
         for (int k = 0; k < clientes.length; k++){ // Ficheiro clientes
             String id_cliente = clientes[k][0];
-            double somatorio = 0; // incremento das compras
+            double somatorio = 0; // Incremento das compras
 
             for (int l = 0; l < vendas.length; l++){ // Ficheiro vendas
                 String id_vendas = vendas[l][1];
@@ -164,7 +218,6 @@ public class functions_admin {
 
                 if(id_cliente.equalsIgnoreCase(id_vendas)){ // identificar o cliente nas compras
                     somatorio += compras; // Somar as diferentes compras de 1 cliente
-
                 }
 
                 if(somatorio > valor_maior){
@@ -175,11 +228,81 @@ public class functions_admin {
             }
         }
 
+
+        for (int l = 0; l < vendas.length; l++) { // Iterar as vendas de novo
+            String id_vendas = vendas[l][1];
+
+            if (melhor_cliente.equalsIgnoreCase(id_vendas)) { // Verificar o melhor cliente
+                jogos_comprados += vendas[l][4] + "\n";
+            }
+        }
+
+        // Dados do cliente
         pesquisaCliente(clientes,melhor_cliente);
 
-        System.out.println(melhor_cliente + " " + String.format("%.2f",valor_maior));
+        // Dinheiro gasto na loja
+        System.out.println("\nCOMPRAS TOTAIS: " + String.format("%.2f€",valor_maior));
+
+        // Jogos comprados
+        System.out.println("\n - JOGOS COMPRADOS -");
+        System.out.println(jogos_comprados);
+
     }
 
+    /**
+     * Opção 7
+     * Função para retornar a melhor categoria e o seu lucro individual
+     */
+    public static void melhorCategoria(String [][] vendas, String [][] categorias){
+
+        double maior_lucro = 0;
+        String melhor_categoria = "";
+
+        for(int i = 0; i < categorias.length; i++){
+            String categoria = categorias[i][0];
+            double margem = Double.parseDouble(categorias[i][1]);
+            double lucro_individual = 0;
+
+            for (int x = 0 ; x < vendas.length; x++){
+                String categoria_vendas = vendas[x][3];
+                double valor = Double.parseDouble(vendas[x][5]);
+
+                if(categoria.equalsIgnoreCase(categoria_vendas)){
+                    double lucro = valor * (margem / 100);
+                    lucro_individual += lucro;
+                }
+
+            }
+
+            if(lucro_individual > maior_lucro){
+                maior_lucro = lucro_individual;
+                melhor_categoria = categoria;
+            }
+
+
+        }
+
+        System.out.println("\n\s\s\s\s\s\s **** Melhor Categoria ****\n");
+        System.out.println(melhor_categoria + " -> " + String.format("%.2f€",maior_lucro));
+
+    }
+
+
+    /** Opção 8
+     *
+     * @param vendas
+     * @param clientes
+     * @param jogo
+     */
+    public static void pesquisaVendas(String [][] vendas, String [][] clientes, String jogo){
+
+
+    }
+
+    /** Opção 9
+     *
+     * @param vendas
+     */
     public static void top5(String [][] vendas){
 
         boolean repetido = false;
@@ -202,27 +325,6 @@ public class functions_admin {
         }
     }
 
-    public static void pesquisaVendas(String [][] vendas, String [][] clientes, String jogo){
-
-        for (int l = 0; l < clientes.length; l++){
-            String id_cliente = clientes[l][0];
-            for(int x = 0; x < vendas.length;x++){
-                String jogos = vendas[x][4];
-                if(id_cliente.equals(vendas[x][1])){
-                    System.out.print(clientes[l][x] + " ");
-                }
-            }
-        }
-    }
-
-    public static double lucros ( String [][] file_vendas){
-        double lucro_total = 0.0;
-        // 8572,47€
-        for (int i = 0; i < file_vendas.length; i++){
-        }
-
-        return lucro_total;
-    }
 }
 
 

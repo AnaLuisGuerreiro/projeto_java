@@ -44,9 +44,9 @@ public class functions_cliente {
         int somatorio = 0;
 
         for (int i = 1; somatorio < max; i++) {
-            somatorio += i;
+            somatorio += i;                       // Numeros triangulares
             if (somatorio <= max) {
-                if (somatorio % 5 == 0) {
+                if (somatorio % 5 == 0) {         // Verificar se são multiplos de 5
                     System.out.print("\uD83D\uDE98 ");
                     System.out.print(somatorio + " | ");
                 }
@@ -57,14 +57,14 @@ public class functions_cliente {
 
     /**
      * Opção 3
-     * Imprimir catalogo (coluna da matriz com os jogos)
+     * Imprimir catalogo (coluna da matriz sem duplicados com os jogos)
      * @param matriz_file
      */
-    public static void imprimirJogos(String [][] matriz_file){
+    public static void imprimirColuna(String [][] matriz_file, int coluna){
 
         // Percorrer matriz para imprimir
         for (int l = 0; l < matriz_file.length; l++) {
-            System.out.println(matriz_file[l][4]);
+            System.out.println(matriz_file[l][coluna]);
         }
     }
 
@@ -145,8 +145,8 @@ public class functions_cliente {
         System.out.println("\n----> " + parametro.toUpperCase() + " <----");
 
 
-        if (editoras) { // Pesquisar por editora
-            String ultima_categoria = "";
+        if (editoras) { // Pesquisa por editora
+            String ultima_categoria = ""; // Para guardar a ultima impressa
 
             // Iterar as categorias
             for (int t = 0; t < matriz_categorias.length; t++) {
@@ -160,7 +160,7 @@ public class functions_cliente {
 
                     // Verificar editora e categoria
                     if (parametro.equalsIgnoreCase(editora) && categoria.equalsIgnoreCase(categoria_vendas)) {
-                        if (!ultima_categoria.equals(categoria)) {
+                        if (!ultima_categoria.equals(categoria)) {  // Verificar com categoria anterior foi impressa
                             System.out.println("\n**** " + categoria + " ****");
                             ultima_categoria = categoria;
                         }
@@ -169,7 +169,7 @@ public class functions_cliente {
                 }
             }
         } else {
-            String ultima_editora = "";
+            String ultima_editora = "";  // Pesquisa por categoria
 
             for (int t = 0; t < matriz_categorias.length; t++) {
                 String categoria = matriz_categorias[t][0];
@@ -178,7 +178,8 @@ public class functions_cliente {
                     String editora = matriz_vendas[l][2];
                     String categoria_vendas = matriz_vendas[l][3];
                     String jogo = matriz_vendas[l][4];
-                    if (parametro.equalsIgnoreCase(categoria) && categoria.equals(categoria_vendas)){
+
+                    if (parametro.equalsIgnoreCase(categoria_vendas) && categoria.equals(categoria_vendas)){
                         if (!ultima_editora.equals(editora)) {
                             System.out.println("\n**** " + editora + " ****");
                             ultima_editora = editora;
