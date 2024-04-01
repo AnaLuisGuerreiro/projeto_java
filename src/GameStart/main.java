@@ -1,6 +1,7 @@
 package GameStart;
 
 import java.io.FileNotFoundException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import static GameStart.functions_admin.*;
@@ -117,12 +118,11 @@ public class main {
         // ############################################ MENU ADMIN ##################################################
         // Validação e apresentação de menu Admin
         if (user == 2) {
-
-          //  if (login(matriz_admins)) { // Sistema login, aceder só com credenciais
+                //  if (login(matriz_admins)) { // Sistema login, aceder só com credenciais
                 do {
 
-                    // Opções do Admin
-                    System.out.print("""
+                        // Opções do Admin
+                        System.out.print("""
                                                 
                             ------------- Menu Admin -------------
                             1. Consulta de ficheiros
@@ -137,59 +137,62 @@ public class main {
                             10. Bottom 5 jogos
                             11. Sair 👋
                             """);
-                    opcao_admin = input.nextInt();
+                        opcao_admin = input.nextInt();
 
-                    switch (opcao_admin) {
-                        case 1:
-                            menuFicheiros(matriz_vendas, matriz_categorias, matriz_clientes);
-                            break;
-                        case 2:
-                            vendasTotal(matriz_vendas);
-                            break;
-                        case 3:
-                            System.out.println("\n\s\s\s\s\s\s **** Total de lucro ****\n");
-                            lucro_total = lucros(matriz_vendas,matriz_categorias); // Calcular lucro
-                            System.out.println("💵💵💵💵💵💵💵💵💵💵💵💵💵💵💵");
-                            System.out.println("\s\s\s\s\s\s\s\s\s\sLUCRO: " + String.format("%.2f€",lucro_total));
-                            System.out.println("💵💵💵💵💵💵💵💵💵💵💵💵💵💵💵");
-                            break;
-                        case 4:
-                            System.out.println("\n\s\s\s\s\s\s **** Pesquisar Cliente ****");
-                            System.out.print("Insira o codigo: ");
-                            id_cliente = input.next();
-                            pesquisaCliente(matriz_clientes, id_cliente);
-                            break;
-                        case 5:
-                            jogoMaisCaro(matriz_vendas,matriz_clientes);
-                            break;
-                        case 6:
-                            melhoresClientes(matriz_vendas, matriz_clientes);
-                            break;
-                        case 7:
-                            melhorCategoria(matriz_vendas,matriz_categorias);
-                            break;
-                        case 8:
-                            System.out.println("Jogo a pesquisar: ");
-                            jogo = input.next();
-                            pesquisaVendas(matriz_vendas, matriz_clientes, jogo);
-                            break;
-                        case 9:
-                            top5(matriz_vendas);
-                            break;
-                        case 10:
-                            break;
-                        case 11:
-                            imprimir(file_copyright);
-                            break;
-                        default:
-                            System.out.println("Opção inválida!");
-                            opcao_admin = input.nextInt();
-                            break;
-
-                    }
+                        switch (opcao_admin) {
+                            case 1:
+                                menuFicheiros(matriz_vendas, matriz_categorias, matriz_clientes);
+                                break;
+                            case 2:
+                                vendasTotal(matriz_vendas);
+                                break;
+                            case 3:
+                                lucro_total = lucros(matriz_vendas, matriz_categorias); // Calcular lucro
+                                System.out.println("\n\s\s\s\s\s\s\s**** Total de lucro ****\n");
+                                System.out.println("💵💵💵💵💵💵💵💵💵💵💵💵💵💵💵");
+                                System.out.println("\s\s\s\s\s\s\s\s\s\sLUCRO: " + String.format("%.2f€", lucro_total));
+                                System.out.println("💵💵💵💵💵💵💵💵💵💵💵💵💵💵💵");
+                                break;
+                            case 4:
+                                System.out.println("\n\s\s\s\s\s\s\s**** Pesquisar Cliente ****");
+                                System.out.print("Insira o codigo: ");
+                                id_cliente = input.next();
+                                pesquisaCliente(matriz_clientes, id_cliente);
+                                break;
+                            case 5:
+                                jogoMaisCaro(matriz_vendas, matriz_clientes);
+                                break;
+                            case 6:
+                                melhorCliente(matriz_vendas, matriz_clientes);
+                                break;
+                            case 7:
+                                melhorCategoria(matriz_vendas, matriz_categorias);
+                                break;
+                            case 8:
+                                System.out.println("\n\s\s\s\s\s\s\s**** Pesquisa por Jogo ****");
+                                System.out.println("Jogo a pesquisar: ");
+                                input.nextLine();
+                                jogo = input.nextLine();
+                                pesquisaVendas(matriz_vendas, matriz_clientes, jogo);
+                                break;
+                            case 9:
+                                top5(matriz_vendas, matriz_categorias);
+                                break;
+                            case 10:
+                                break;
+                            case 11:
+                                imprimir(file_copyright);
+                                break;
+                            default:
+                                System.out.println("Opção inválida!");
+                                opcao_admin = input.nextInt();
+                                break;
+                        }
 
                 } while (opcao_admin != 11);
-            }
+
+        }
+
 
       //  }
     }
