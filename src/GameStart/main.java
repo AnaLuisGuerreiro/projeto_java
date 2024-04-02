@@ -176,9 +176,11 @@ public class main {
                                 pesquisaVendas(matriz_vendas, matriz_clientes, jogo);
                                 break;
                             case 9:
-                                top5(matriz_vendas, matriz_categorias);
+                                topBottom5(matriz_vendas, matriz_categorias, vendas_sem_duplicados,true);
                                 break;
                             case 10:
+                                topBottom5(matriz_vendas, matriz_categorias, vendas_sem_duplicados,false);
+
                                 break;
                             case 11:
                                 imprimir(file_copyright);

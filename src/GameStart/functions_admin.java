@@ -262,6 +262,8 @@ public class functions_admin {
     /**
      * Opção 7
      * Função para retornar a melhor categoria e o seu lucro individual
+     * @param vendas
+     * @param categorias
      */
     public static void melhorCategoria(String[][] vendas, String[][] categorias) {
 
@@ -330,31 +332,87 @@ public class functions_admin {
     }
 
     /**
-     * Opção 9
      *
      * @param vendas
+     * @param categorias
+     * @param jogos
+     * @param top_bottom
      */
-    public static void top5(String[][] vendas, String[][] categorias) {
+    public static void topBottom5(String[][] vendas, String[][] categorias, String [][] jogos, boolean top_bottom) {
 
-        double [] lucro_venda = new double[vendas.length];
+        if (top_bottom) {
+            System.out.println("\n\s\s\s\s\s\s\s**** TOP 5 jogos por lucro ****\n");
+        } else {
+            System.out.println("\n\s\s\s\s\s\s\s**** Bottom 5 jogos por lucro ****\n");
+        }
 
-        for (int i = 0; i < vendas.length; i++) {
-            String categoria_venda = vendas[i][3];
-            double preco_venda = Double.parseDouble(vendas[i][5]);
-            boolean repetido = false;
+        String[] jogos_titulos = new String[jogos.length];
+        double[] jogos_lucro = new double[jogos.length];
 
-            for (int x = 0; x < categorias.length; x++){
-                String categoria = categorias[x][0];
+        for (int x = 0; x < jogos.length; x++) {
+            String jogo = jogos[x][4];
+            double lucro_jogo = 0; // Reset em cada jogo
 
-                if(categoria_venda.equalsIgnoreCase(categoria)){
-                    double margem_lucro = Double.parseDouble(categorias[x][1]);
+            for (int i = 0; i < vendas.length; i++) {
+                String categoria_venda = vendas[i][3];
+                String jogo_vendas = vendas[i][4];
+                double preco_venda = Double.parseDouble(vendas[i][5]);
 
-                    lucro_venda[x] = preco_venda * (margem_lucro / 100);
+                if (jogo_vendas.equalsIgnoreCase(jogo)) {
 
+                    for (int t = 0; t < categorias.length; t++) {
+                        double margem = Double.parseDouble(categorias[t][1]);
+
+                        if (categorias[t][0].equalsIgnoreCase(categoria_venda)) {
+                            double lucro = preco_venda * (margem / 100);  // Calcular lucro para 1 venda em especifico
+                            lucro_jogo += lucro;
+                            break; // Parar mal encontre a categoria
+                        }
+                    }
+                }
+            }
+
+
+            jogos_titulos[x] = jogo;
+            jogos_lucro[x] = lucro_jogo;
+        }
+
+
+        if(top_bottom) {
+            for (int c = 0; c < 5; c++) {
+                double maior_lucro = 0;
+                int index = 0;
+                for (int i = 0; i < jogos_lucro.length; i++) {
+                    if (jogos_lucro[i] > maior_lucro) {
+                        maior_lucro = jogos_lucro[i];
+                        index = i;
+                    }
+                }
+
+                if (index != -1) {
+                    System.out.println((c + 1) + ". " + jogos_titulos[index] + " - Lucro: " + String.format("%.2f€", maior_lucro));
+                    jogos_lucro[index] = -1;
+                }
+            }
+        } else {
+            for (int c = 0; c < 5; c++) {
+                double menor_lucro = 9999;
+                int index = -1;
+                for (int i = 0; i < jogos_lucro.length; i++) {
+                    if (jogos_lucro[i] < menor_lucro) {
+                        menor_lucro = jogos_lucro[i];
+                        index = i;
+                    }
+                }
+
+                if (index != -1) {
+                    System.out.println((c + 1) + ". " + jogos_titulos[index] + " - Lucro: " + String.format("%.2f€", menor_lucro));
+                    jogos_lucro[index] = 9999;
                 }
             }
         }
     }
+
 }
 
 
