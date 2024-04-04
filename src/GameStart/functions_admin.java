@@ -77,6 +77,7 @@ public class functions_admin {
                     break;
                 case 3:
                     imprimirMatriz(categorias);
+
             }
         } while (opcao != 4);
     }
@@ -111,6 +112,7 @@ public class functions_admin {
      * Função para calcular o lucro total das vendas
      *
      * @param vendas
+     * @param categorias
      * @return total de lucro
      */
     public static double lucros(String[][] vendas, String[][] categorias) {
@@ -139,6 +141,9 @@ public class functions_admin {
      * Opção 4
      * Metodo para pesquisar um cliente pelo id
      * e mostrar as suas informações
+     *
+     * @param clientes
+     * @param id
      */
     public static void pesquisaCliente(String[][] clientes, String id) {
 
@@ -162,7 +167,8 @@ public class functions_admin {
      * Opção 5
      * Função para retornar o jogo mais caro do sistema
      *
-     * @param vendas (ficheiro)
+     * @param vendas
+     * @param clientes
      */
     public static void jogoMaisCaro(String[][] vendas, String[][] clientes) {
 
@@ -262,6 +268,7 @@ public class functions_admin {
     /**
      * Opção 7
      * Função para retornar a melhor categoria e o seu lucro individual
+     *
      * @param vendas
      * @param categorias
      */
@@ -332,6 +339,7 @@ public class functions_admin {
     }
 
     /**
+     * Função que retorna os 5 jogos mais rentaveis e os 5 menos rentaveis
      *
      * @param vendas
      * @param categorias
@@ -346,8 +354,7 @@ public class functions_admin {
             System.out.println("\n\s\s\s\s\s\s\s**** Bottom 5 jogos por lucro ****\n");
         }
 
-        String[] jogos_titulos = new String[jogos.length];
-        double[] jogos_lucro = new double[jogos.length];
+        double[] jogos_lucro = new double[jogos.length]; // Criar array só com os respetivos preços
 
         for (int x = 0; x < jogos.length; x++) {
             String jogo = jogos[x][4];
@@ -372,32 +379,30 @@ public class functions_admin {
                 }
             }
 
-
-            jogos_titulos[x] = jogo;
             jogos_lucro[x] = lucro_jogo;
         }
 
 
-        if(top_bottom) {
+        if (top_bottom) {
             for (int c = 0; c < 5; c++) {
-                double maior_lucro = 0;
-                int index = 0;
-                for (int i = 0; i < jogos_lucro.length; i++) {
+                double maior_lucro = 0;  // Guardar o que tiver mais lucro
+                int index = 0;          // Guardar a linha
+                for (int i = 0; i < jogos_lucro.length; i++) { // Percorrer os lucros
                     if (jogos_lucro[i] > maior_lucro) {
                         maior_lucro = jogos_lucro[i];
                         index = i;
                     }
                 }
 
-                if (index != -1) {
-                    System.out.println((c + 1) + ". " + jogos_titulos[index] + " - Lucro: " + String.format("%.2f€", maior_lucro));
-                    jogos_lucro[index] = -1;
+                if (maior_lucro != 0) {
+                    System.out.println((c + 1) + ". " + jogos[index][4] + " - Lucro: " + String.format("%.2f€", maior_lucro));
+                    jogos_lucro[index] = 0; // Tornar inválido para mais avaliações
                 }
             }
         } else {
             for (int c = 0; c < 5; c++) {
                 double menor_lucro = 9999;
-                int index = -1;
+                int index = 0;
                 for (int i = 0; i < jogos_lucro.length; i++) {
                     if (jogos_lucro[i] < menor_lucro) {
                         menor_lucro = jogos_lucro[i];
@@ -405,14 +410,13 @@ public class functions_admin {
                     }
                 }
 
-                if (index != -1) {
-                    System.out.println((c + 1) + ". " + jogos_titulos[index] + " - Lucro: " + String.format("%.2f€", menor_lucro));
+                if (menor_lucro != 9999) {
+                    System.out.println((c + 1) + ". " + jogos[index][4] + " - Lucro: " + String.format("%.2f€", menor_lucro));
                     jogos_lucro[index] = 9999;
                 }
             }
         }
     }
-
 }
 
 

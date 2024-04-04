@@ -60,18 +60,17 @@ public class functions_cliente {
      * Imprimir catalogo (coluna da matriz sem duplicados com os jogos)
      * @param matriz_file
      */
-    public static void imprimirColuna(String [][] matriz_file, int coluna){
+    public static void imprimirColuna(String [][] jogos, int coluna){
 
-        // Percorrer matriz para imprimir
-        for (int l = 0; l < matriz_file.length; l++) {
-            System.out.println(matriz_file[l][coluna]);
+        // Percorrer matriz para imprimir coluna
+        for (int l = 0; l < jogos.length; l++) {
+            System.out.println(jogos[l][coluna]);
         }
     }
 
     /**
      * Opção 4
      * Apresenta o menu de catalogos e imprime o selecionado
-     *
      * @throws FileNotFoundException
      */
     public static void menuCatalogos() throws FileNotFoundException {
@@ -129,8 +128,8 @@ public class functions_cliente {
                 case 8:
                     break;
                 default:
-                    System.out.println("Opção inválida digite novamente!");
-                    opcao = input.nextInt();
+                    System.out.println("Opção inválida!");
+                    break;
             }
         } while (opcao != 8);
     }
@@ -195,11 +194,11 @@ public class functions_cliente {
 
     /** Opção 7
      * Metodo para retornar jogo mais recente
-     * @param matriz_file
+     * @param jogos
      */
-    public static void jogoMaisRecente (String[][]matriz_file){
+    public static void jogoMaisRecente (String[][]jogos){
         // Ultimo jogo da matriz sem duplicados
-        String ultima_linha = matriz_file[matriz_file.length - 1][4];
+        String ultima_linha = jogos[jogos.length - 1][4];
 
         System.out.println("\n\s\s\s\s\s\s **** Jogo mais recente ****");
         System.out.println(ultima_linha);

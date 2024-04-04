@@ -76,9 +76,7 @@ public class main {
                         novoRegisto();
                         break;
                     case 2:
-                        System.out.print("""
-                                             **** Lugares Vagos ****
-                                """);
+                        System.out.println("\s\s\s\s\s\s\s**** Lugares vagos **** ");
                         procurarEstacionamento(121);
                         break;
                     case 3:
@@ -106,35 +104,35 @@ public class main {
                         imprimir(file_copyright);
                         break;
                     default:
-                        System.out.println("Opção inválida. Digite novamente:");
-                        opcao_cliente = input.nextInt();
+                        System.out.println("Opção inválida.");
+                        break;
                 }
 
 
             } while (opcao_cliente != 8);
-
+                input.close();
         }
 
         // ############################################ MENU ADMIN ##################################################
         // Validação e apresentação de menu Admin
         if (user == 2) {
-                //  if (login(matriz_admins)) { // Sistema login, aceder só com credenciais
+                  if (login(matriz_admins)) { // Sistema login, aceder só com credenciais
                 do {
 
                         // Opções do Admin
                         System.out.print("""
                                                 
                             ------------- Menu Admin -------------
-                            1. Consulta de ficheiros
-                            2. Total de vendas
-                            3. Total de lucro
-                            4. Pesquisa de cliente
-                            5. Jogo mais caro
-                            6. Melhores clientes
-                            7. Melhor categoria
-                            8. Pesquisa Vendas
-                            9. Top 5 jogos
-                            10. Bottom 5 jogos
+                            1. Consulta de ficheiros 🗄
+                            2. Total de vendas 💵
+                            3. Total de lucro 💹
+                            4. Pesquisa de cliente 🧑🏽
+                            5. Jogo mais caro 🎱
+                            6. Melhores clientes 😇
+                            7. Melhor categoria ✨
+                            8. Pesquisa Vendas 🔎
+                            9. Top 5 jogos 🎮
+                            10. Bottom 5 jogos 🎯
                             11. Sair 👋
                             """);
                         opcao_admin = input.nextInt();
@@ -144,10 +142,11 @@ public class main {
                                 menuFicheiros(matriz_vendas, matriz_categorias, matriz_clientes);
                                 break;
                             case 2:
+                                System.out.println("\n\s\s\s\s\s\s\s**** Total de vendas ****\n");
                                 vendasTotal(matriz_vendas);
                                 break;
                             case 3:
-                                lucro_total = lucros(matriz_vendas, matriz_categorias); // Calcular lucro
+                                lucro_total = lucros(matriz_vendas, matriz_categorias);
                                 System.out.println("\n\s\s\s\s\s\s\s**** Total de lucro ****\n");
                                 System.out.println("💵💵💵💵💵💵💵💵💵💵💵💵💵💵💵");
                                 System.out.println("\s\s\s\s\s\s\s\s\s\sLUCRO: " + String.format("%.2f€", lucro_total));
@@ -180,14 +179,12 @@ public class main {
                                 break;
                             case 10:
                                 topBottom5(matriz_vendas, matriz_categorias, vendas_sem_duplicados,false);
-
                                 break;
                             case 11:
                                 imprimir(file_copyright);
                                 break;
                             default:
                                 System.out.println("Opção inválida!");
-                                opcao_admin = input.nextInt();
                                 break;
                         }
 
@@ -196,6 +193,6 @@ public class main {
         }
 
 
-      //  }
+       }
     }
 }
